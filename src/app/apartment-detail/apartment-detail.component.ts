@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { ApartmentService } from '../services/apartment.service';
 import {Apartment} from '../models/apartment.model';
 
 @Component({
@@ -12,18 +13,16 @@ export class ApartmentDetailComponent implements OnInit {
   apartmentId!: number;
   apartment?: Apartment;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apartmentService: ApartmentService
+  ) {}
 
   ngOnInit(): void {
     this.apartmentId = +this.route.snapshot.paramMap.get('id')!;
-
-    // Simulated fetch from backend - replace with service call later
-    const mockData: Apartment[] = [
-      { id: 1, building_name: 'A Block', unit_number: '101', floor: 1 },
-      { id: 2, building_name: 'B Block', unit_number: '202', floor: 2 },
-      { id: 3, building_name: 'C Block', unit_number: '303', floor: 3 }
-    ];
-
-    this.apartment = mockData.find(ap => ap.id === this.apartmentId);
+    this.apartmentService.getApartmentById(this.apartmentId).subscribe({
+      next: (data) => this.apartment = data,
+      error: () => this.apartment = undefined
+    });
   }
 }

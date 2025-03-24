@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import {ApartmentService} from '../services/apartment.service';
 import {Apartment} from '../models/apartment.model';
 
 @Component({
@@ -8,19 +9,20 @@ import {Apartment} from '../models/apartment.model';
   templateUrl: './apartment-list.component.html',
   styleUrl: './apartment-list.component.css'
 })
+
 export class ApartmentListComponent implements OnInit {
+  apartments: Apartment[] = [];
 
-  apartments: Apartment[] = [
-    { id: 1, building_name: 'A Block', unit_number: '101', floor: 1 },
-    { id: 2, building_name: 'B Block', unit_number: '202', floor: 2 },
-    { id: 3, building_name: 'C Block', unit_number: '303', floor: 3 }
-  ];
-
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {}
+  constructor(private apartmentService: ApartmentService, private router: Router) { }
 
   viewDetails(id: number) {
     this.router.navigate(['/view-apartment', id]);
+  }
+
+  ngOnInit(): void {
+    this.apartmentService.getAllApartments().subscribe({
+      next: (data) => this.apartments = data,
+      error: (err) => console.error('Error fetching apartments', err)
+    });
   }
 }

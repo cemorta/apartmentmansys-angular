@@ -1,6 +1,6 @@
 export interface Apartment {
   id: number;
-  building_name: string;
-  unit_number: string;
+  buildingName: string;
+  unitNumber: string;
   floor: number;
 }
