@@ -18,4 +18,8 @@ export class ApartmentService {
   getApartmentById(id: number): Observable<Apartment> {
     return this.http.get<Apartment>(`${this.apiUrl}/${id}`);
   }
+
+  addApartment(apartment: Apartment): Observable<Apartment> {
+    return this.http.post<Apartment>(`${this.apiUrl}/create`, apartment);
+  }
 }
