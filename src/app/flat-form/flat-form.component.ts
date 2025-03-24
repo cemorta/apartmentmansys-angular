@@ -9,6 +9,20 @@ import {NgForm, NgModel} from '@angular/forms';
 })
 export class FlatFormComponent {
 
+  flats = [
+    { id: 1, flatName: "firstFlat" },
+    { id: 2, flatName: "secondFlat" },
+    { id: 3, flatName: "thirdFlat" },
+    { id: 4, flatName: "fourthFlat" },
+  ]
+  selectedFlat: any;
+
+  contactMethods = [
+    { id: 1, method: 'Mail' },
+    { id: 2, method: 'Phone' },
+    { id: 3, method: 'Message' }
+  ];
+
   submit(frm: NgForm) {
     console.log(frm);
   }

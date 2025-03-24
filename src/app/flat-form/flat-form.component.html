@@ -14,13 +14,38 @@
     <textarea id="comment" ngModel name="comment" class="form-control"></textarea>
   </div>
 
-<!--  <div ngModelGroup = 'contact'>-->
-<!--    <div class="form-group">-->
-<!--    <label for="address"> Address </label>-->
-<!--      <input ngModel #address="ngModel" name="address">-->
+  <div ngModelGroup = 'contact'>
+    <div class="form-group">
+    <label for="address"> Address </label>
+      <input ngModel #address="ngModel" name="address">
 
-<!--    </div>-->
-<!--  </div>-->
-  <button class="btn btn-primary">Submit</button>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ngModel name="isSubscribed"> IsSubs
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="contactMethod">Contact Method</label>
+        <select ngModel name="contactMethod" class="form-control" id="contactMethod" required>
+          <option *ngFor="let contactMethod of contactMethods" [ngValue]="contactMethod.id">{{ contactMethod.method }}</option>
+        </select>
+        <div *ngFor="let flat of flats">
+          <input
+            type="radio"
+            name="flat"
+            [value]="flat.id"
+            [(ngModel)]="selectedFlat"
+            id="{{flat.id}}"
+          >
+          <label [for]="flat.id">{{ flat.flatName }}</label>
+        </div>
+      </div>
+      <div [hidden]="flats.length == 0">
+        <p> Flats found</p>
+      </div>
+
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled] = "f.invalid">Submit</button>
   <div> {{f.value | json}}</div>
 </form>
