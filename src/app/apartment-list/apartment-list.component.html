@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h3>Apartment List</h3>
+  <table class="table table-bordered table-hover mt-3">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Building Name</th>
+      <th>Unit Number</th>
+      <th>Floor</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let apartment of apartments">
+      <td>{{ apartment.id }}</td>
+      <td>{{ apartment.building_name }}</td>
+      <td>{{ apartment.unit_number }}</td>
+      <td>{{ apartment.floor }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm"
+                (click)="viewDetails(apartment.id)">
+          View
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

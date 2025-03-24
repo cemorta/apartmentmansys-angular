@@ -7,12 +7,16 @@ import { FlatUserComponent } from './flat-user/flat-user.component';
 import {HttpClientModule} from '@angular/common/http';
 import { FlatFormComponent } from './flat-form/flat-form.component';
 import { FormsModule } from '@angular/forms';
+import { ApartmentListComponent } from './apartment-list/apartment-list.component';
+import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FlatUserComponent,
-    FlatFormComponent
+    FlatFormComponent,
+    ApartmentListComponent,
+    ApartmentDetailComponent
   ],
   imports: [
     BrowserModule,

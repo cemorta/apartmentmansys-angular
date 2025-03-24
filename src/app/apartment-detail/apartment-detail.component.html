@@ -1,0 +1,13 @@
+<div class="container mt-4" *ngIf="apartment">
+  <h3>Apartment Details</h3>
+  <ul class="list-group mt-3">
+    <li class="list-group-item"><strong>ID:</strong> {{ apartment.id }}</li>
+    <li class="list-group-item"><strong>Building Name:</strong> {{ apartment.building_name }}</li>
+    <li class="list-group-item"><strong>Unit Number:</strong> {{ apartment.unit_number }}</li>
+    <li class="list-group-item"><strong>Floor:</strong> {{ apartment.floor }}</li>
+  </ul>
+</div>
+<div class="container mt-4" *ngIf="!apartment">
+  <div class="alert alert-warning">Apartment not found!</div>
+</div>
+
