@@ -22,4 +22,8 @@ export class ApartmentService {
   addApartment(apartment: Apartment): Observable<Apartment> {
     return this.http.post<Apartment>(`${this.apiUrl}/create`, apartment);
   }
+
+  deleteApartment(id: number) {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

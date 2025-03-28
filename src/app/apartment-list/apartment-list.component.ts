@@ -19,6 +19,21 @@ export class ApartmentListComponent implements OnInit {
     this.router.navigate(['/view-apartment', id]);
   }
 
+  deleteApartment(id: number): void {
+    if (confirm('Are you sure you want to delete this apartment?')) {
+      this.apartmentService.deleteApartment(id).subscribe({
+        next: () => {
+          // Remove from UI without full reload
+          this.apartments = this.apartments.filter(ap => ap.id !== id);
+        },
+        error: (err: any) => {
+          console.error('Failed to delete apartment', err);
+          alert('Failed to delete. Try again later.');
+        }
+      });
+    }
+  }
+
   ngOnInit(): void {
     this.apartmentService.getAllApartments().subscribe({
       next: (data) => this.apartments = data,
