@@ -35,7 +35,7 @@ export class ApartmentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apartmentService.getAllApartments().subscribe({
+    this.apartmentService.getApartments().subscribe({
       next: (data) => this.apartments = data,
       error: (err) => console.error('Error fetching apartments', err)
     });

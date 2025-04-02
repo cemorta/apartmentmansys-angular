@@ -11,7 +11,7 @@ export class ApartmentService {
 
   constructor(private http: HttpClient) {}
 
-  getAllApartments(): Observable<Apartment[]> {
+  getApartments(): Observable<Apartment[]> {
     return this.http.get<Apartment[]>(this.apiUrl);
   }
 
@@ -19,7 +19,7 @@ export class ApartmentService {
     return this.http.get<Apartment>(`${this.apiUrl}/${id}`);
   }
 
-  addApartment(apartment: Apartment): Observable<Apartment> {
+  createApartment(apartment: Apartment): Observable<Apartment> {
     return this.http.post<Apartment>(`${this.apiUrl}/create`, apartment);
   }
 

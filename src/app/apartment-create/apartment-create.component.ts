@@ -24,7 +24,7 @@ export class ApartmentCreateComponent {
   ) {}
 
   onSubmit(): void {
-    this.apartmentService.addApartment(this.apartment).subscribe({
+    this.apartmentService.createApartment(this.apartment).subscribe({
       next: () => {
         this.isSubmitted = true;
         this.errorMessage = '';
