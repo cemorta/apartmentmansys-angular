@@ -6,8 +6,40 @@
     <li class="list-group-item"><strong>Unit Number:</strong> {{ apartment.unitNumber }}</li>
     <li class="list-group-item"><strong>Floor:</strong> {{ apartment.floor }}</li>
   </ul>
+
+  <!-- Admin Users List - Only visible when showAdminsList is true -->
+  <div class="mt-4" *ngIf="showAdminsList">
+    <h4>Apartment Administrators</h4>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ownership of sortedOwnerships()">
+          <td>{{ ownership.adminUser.firstName }}</td>
+          <td>{{ ownership.adminUser.lastName }}</td>
+          <td>{{ ownership.startDate | date:'mediumDate' }}</td>
+          <td>{{ ownership.endDate ? (ownership.endDate | date:'mediumDate') : 'Ongoing' }}</td>
+          <td>
+              <span class="badge" [ngClass]="ownership.active ? 'bg-success' : 'bg-secondary'">
+                {{ ownership.active ? 'Active' : 'Inactive' }}
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- TODO: Implement access control to only allow super admins to view this section -->
+  </div>
 </div>
+
 <div class="container mt-4" *ngIf="!apartment">
   <div class="alert alert-warning">Apartment not found!</div>
 </div>
-
