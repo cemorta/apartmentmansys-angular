@@ -1,0 +1,94 @@
+<div class="container mt-4">
+  <h3>Create New Flat</h3>
+
+  <form (ngSubmit)="onSubmit()" #flatForm="ngForm" class="mt-3" *ngIf="!isSubmitted; else successTemplate">
+    <div class="mb-3">
+      <label class="form-label">Flat Number</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="flat.flatNumber"
+             name="flatNumber"
+             required
+             #flatNumber="ngModel">
+      <div *ngIf="flatNumber.invalid && flatNumber.touched" class="text-danger mt-1">
+        Flat number is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Floor Number</label>
+      <input type="number" class="form-control"
+             [(ngModel)]="flat.floorNumber"
+             name="floorNumber"
+             required
+             #floorNumber="ngModel">
+      <div *ngIf="floorNumber.invalid && floorNumber.touched" class="text-danger mt-1">
+        Floor number is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Area (m²)</label>
+      <input type="number" class="form-control"
+             [(ngModel)]="flat.area"
+             name="area"
+             required
+             #area="ngModel"
+             min="1">
+      <div *ngIf="area.invalid && area.touched" class="text-danger mt-1">
+        <ng-container *ngIf="area.errors?.['required']">Area is required.</ng-container>
+        <ng-container *ngIf="area.errors?.['min']">Area must be at least 1m².</ng-container>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Bedrooms</label>
+      <input type="number" class="form-control"
+             [(ngModel)]="flat.numBedrooms"
+             name="numBedrooms"
+             required
+             #numBedrooms="ngModel"
+             min="0">
+      <div *ngIf="numBedrooms.invalid && numBedrooms.touched" class="text-danger mt-1">
+        <ng-container *ngIf="numBedrooms.errors?.['required']">Number of bedrooms is required.</ng-container>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Bathrooms</label>
+      <input type="number" class="form-control"
+             [(ngModel)]="flat.numBathrooms"
+             name="numBathrooms"
+             required
+             #numBathrooms="ngModel"
+             min="0">
+      <div *ngIf="numBathrooms.invalid && numBathrooms.touched" class="text-danger mt-1">
+        <ng-container *ngIf="numBathrooms.errors?.['required']">Number of bathrooms is required.</ng-container>
+      </div>
+    </div>
+
+    <!-- Owner selection using owner user list -->
+    <!--
+    <div class="mb-3">
+      <label class="form-label">Owner (User ID)</label>
+      <input type="number" class="form-control"
+             [(ngModel)]="flat.ownerUserId"
+             name="ownerUserId">
+    </div>
+    -->
+
+    <button type="submit" class="btn btn-success" [disabled]="flatForm.invalid">Create</button>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+
+  <!-- Success Template -->
+  <ng-template #successTemplate>
+    <div class="alert alert-success">
+      Flat successfully created!
+      <br>
+      <a routerLink="/apartments/{{ flat.apartmentId }}" class="btn btn-sm btn-outline-success mt-3">Back to Apartment</a>
+    </div>
+  </ng-template>
+</div>

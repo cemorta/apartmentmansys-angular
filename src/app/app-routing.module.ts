@@ -5,13 +5,15 @@ import {FlatUserComponent} from './flat-user/flat-user.component';
 import {ApartmentListComponent} from './apartment-list/apartment-list.component';
 import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.component';
 import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
+import {CreateFlatComponent} from './components/create-flat/create-flat.component';
 
 const routes: Routes = [
   { path: '', component: FlatFormComponent },
   // { path: "browse-flats", component: FlatFormComponent}
   { path: 'apartments', component: ApartmentListComponent },
-  { path: 'view-apartment/:id', component: ApartmentDetailComponent },
-  { path: 'apartments/create', component: ApartmentCreateComponent },
+  { path: 'apartments/:id', component: ApartmentDetailComponent },
+  { path: 'apartment/create', component: ApartmentCreateComponent },
+  { path: 'apartments/:id/create-flat', component: CreateFlatComponent },
 ];
 
 @NgModule({

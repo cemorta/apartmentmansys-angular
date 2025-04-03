@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { ApartmentListComponent } from './apartment-list/apartment-list.component';
 import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
 import { ApartmentCreateComponent } from './apartment-create/apartment-create.component';
+import { CreateFlatComponent } from './components/create-flat/create-flat.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ApartmentCreateComponent } from './apartment-create/apartment-create.co
     FlatFormComponent,
     ApartmentListComponent,
     ApartmentDetailComponent,
-    ApartmentCreateComponent
+    ApartmentCreateComponent,
+    CreateFlatComponent
   ],
   imports: [
     BrowserModule,

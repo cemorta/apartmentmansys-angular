@@ -7,7 +7,6 @@
   </div>
 
   <ul class="list-group mb-4">
-    <li class="list-group-item"><strong>ID:</strong> {{ apartment.id }}</li>
     <li class="list-group-item"><strong>Building Name:</strong> {{ apartment.buildingName }}</li>
     <li class="list-group-item"><strong>Unit Number:</strong> {{ apartment.unitNumber }}</li>
     <li class="list-group-item"><strong>Floor:</strong> {{ apartment.floor }}</li>
@@ -32,6 +31,7 @@
           <th>Floor</th>
           <th>Area (m²)</th>
           <th>Status</th>
+          <th>Owner</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -41,9 +41,12 @@
           <td>{{ flat.floorNumber }}</td>
           <td>{{ flat.area }}</td>
           <td>
-              <span class="badge" [ngClass]="flat.owner ? 'bg-success' : 'bg-warning'">
-                {{ flat.owner ? 'Occupied' : 'Vacant' }}
+              <span class="badge" [ngClass]="flat.flatOccupants ? 'bg-success' : 'bg-warning'">
+                {{ flat.flatOccupants?.length == 0 ? 'Vacant' : 'Occupied' }}
               </span>
+          </td>
+          <td>
+            {{ flat.owner ? flat.owner.firstName + ' ' + flat.owner.lastName : 'None' }}
           </td>
           <td>
             <div class="btn-group btn-group-sm" role="group">
@@ -75,7 +78,7 @@
         <div class="floor-layout">
           <div *ngFor="let flat of getFlatsForFloor(floor)"
                class="flat-box"
-               [ngClass]="{'occupied': flat.owner, 'vacant': !flat.owner}"
+               [ngClass]="{'occupied': flat.flatOccupants, 'vacant': !(flat.flatOccupants)}"
                tabindex="0"
                (click)="selectedFlat = flat">
             <div class="flat-number">{{ flat.flatNumber }}</div>
@@ -105,10 +108,13 @@
         <p><strong>Floor:</strong> {{ selectedFlat.floorNumber }}</p>
         <p><strong>Area:</strong> {{ selectedFlat.area }}m²</p>
         <p><strong>Status:</strong>
-          <span class="badge" [ngClass]="selectedFlat.owner ? 'bg-success' : 'bg-warning'">
-            {{ selectedFlat.owner ? 'Occupied' : 'Vacant' }}
+          <span class="badge" [ngClass]="selectedFlat.flatOccupants ? 'bg-success' : 'bg-warning'">
+            {{ selectedFlat.flatOccupants?.length == 0 ? 'Vacant' : 'Occupied' }}
           </span>
         </p>
+        <p><strong>Owner:</strong> {{ selectedFlat.owner ? selectedFlat.owner.firstName + ' ' + selectedFlat.owner.lastName : 'None' }}</p>
+        <p><strong>Number of Bedrooms:</strong> {{ selectedFlat.numBedrooms }}</p>
+        <p><strong>Number of Bathrooms:</strong> {{ selectedFlat.numBathrooms }}</p>
       </div>
     </div>
   </div>

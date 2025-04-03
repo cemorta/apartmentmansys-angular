@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { Router } from '@angular/router';
 import {ApartmentService} from '../services/apartment.service';
 import {Apartment} from '../models/apartment.model';
 import {Flat} from '../models/flat.model';
@@ -52,9 +53,8 @@ export class ApartmentDetailComponent implements OnInit {
 
   // Action methods
   createNewFlat(): void {
-    // Navigate to flat creation page or open modal
-    console.log('Creating new flat');
-    // this.router.navigate(['flats/create'], { queryParams: { apartmentId: this.apartment.id } });
+    // Navigate to flat creation page
+    this.router.navigate([`/apartments/${this.apartmentId}/create-flat`]);
   }
 
   viewFlatDetails(flatId: number): void {
@@ -76,6 +76,7 @@ export class ApartmentDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private apartmentService: ApartmentService
   ) {}
 

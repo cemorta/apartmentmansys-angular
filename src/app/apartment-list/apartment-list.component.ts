@@ -16,7 +16,7 @@ export class ApartmentListComponent implements OnInit {
   constructor(private apartmentService: ApartmentService, private router: Router) { }
 
   viewDetails(id: number) {
-    this.router.navigate(['/view-apartment', id]);
+    this.router.navigate(['/apartments', id]);
   }
 
   deleteApartment(id: number): void {
