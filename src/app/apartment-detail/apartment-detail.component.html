@@ -1,13 +1,119 @@
 <div class="container mt-4" *ngIf="apartment">
-  <h3>Apartment Details</h3>
-  <ul class="list-group mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Apartment Details</h3>
+    <button class="btn btn-primary" (click)="createNewFlat()">
+      <i class="bi bi-plus-circle"></i> Add New Flat
+    </button>
+  </div>
+
+  <ul class="list-group mb-4">
     <li class="list-group-item"><strong>ID:</strong> {{ apartment.id }}</li>
     <li class="list-group-item"><strong>Building Name:</strong> {{ apartment.buildingName }}</li>
     <li class="list-group-item"><strong>Unit Number:</strong> {{ apartment.unitNumber }}</li>
     <li class="list-group-item"><strong>Floor:</strong> {{ apartment.floor }}</li>
   </ul>
 
-  <!-- Admin Users List - Only visible when showAdminsList is true -->
+  <!-- Display Toggle -->
+  <div class="mb-3">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn" [ngClass]="viewMode === 'table' ? 'btn-primary' : 'btn-outline-primary'" (click)="viewMode = 'table'">Table View</button>
+      <button type="button" class="btn" [ngClass]="viewMode === 'visual' ? 'btn-primary' : 'btn-outline-primary'" (click)="viewMode = 'visual'">Floor View</button>
+    </div>
+  </div>
+
+  <!-- Table View -->
+  <div *ngIf="viewMode === 'table'" class="mb-4">
+    <h4>Flats</h4>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Number</th>
+          <th>Floor</th>
+          <th>Area (m²)</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let flat of apartment.apartmentFlats">
+          <td>{{ flat.flatNumber }}</td>
+          <td>{{ flat.floorNumber }}</td>
+          <td>{{ flat.area }}</td>
+          <td>
+              <span class="badge" [ngClass]="flat.owner ? 'bg-success' : 'bg-warning'">
+                {{ flat.owner ? 'Occupied' : 'Vacant' }}
+              </span>
+          </td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-info" (click)="viewFlatDetails(flat.id)">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-warning" (click)="editFlat(flat.id)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="removeFlat(flat.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Visual Floor View -->
+  <div *ngIf="viewMode === 'visual'" class="mb-4">
+    <h4>Floor View</h4>
+    <div class="floor-view-container">
+      <div *ngFor="let floor of getUniqueFloors()" class="floor-container mb-3">
+        <div class="floor-header">
+          <h5>Floor {{ floor }}</h5>
+        </div>
+        <div class="floor-layout">
+          <div *ngFor="let flat of getFlatsForFloor(floor)"
+               class="flat-box"
+               [ngClass]="{'occupied': flat.owner, 'vacant': !flat.owner}"
+               tabindex="0"
+               (click)="selectedFlat = flat">
+            <div class="flat-number">{{ flat.flatNumber }}</div>
+            <div class="flat-area">{{ flat.area }}m²</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selected Flat Details -->
+    <div *ngIf="selectedFlat" class="card mt-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Flat {{ selectedFlat.flatNumber }}</h5>
+        <div class="btn-group btn-group-sm" role="group">
+          <button class="btn btn-info" (click)="viewFlatDetails(selectedFlat.id)">
+            <i class="bi bi-eye"></i> View
+          </button>
+          <button class="btn btn-warning" (click)="editFlat(selectedFlat.id)">
+            <i class="bi bi-pencil"></i> Edit
+          </button>
+          <button class="btn btn-danger" (click)="removeFlat(selectedFlat.id)">
+            <i class="bi bi-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p><strong>Floor:</strong> {{ selectedFlat.floorNumber }}</p>
+        <p><strong>Area:</strong> {{ selectedFlat.area }}m²</p>
+        <p><strong>Status:</strong>
+          <span class="badge" [ngClass]="selectedFlat.owner ? 'bg-success' : 'bg-warning'">
+            {{ selectedFlat.owner ? 'Occupied' : 'Vacant' }}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Users List (from previous implementation) -->
   <div class="mt-4" *ngIf="showAdminsList">
     <h4>Apartment Administrators</h4>
     <div class="table-responsive">
