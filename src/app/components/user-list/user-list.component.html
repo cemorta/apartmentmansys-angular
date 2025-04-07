@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <h3>User List</h3>
+    <a routerLink="/user/create" class="btn btn-success">
+      <i class="bi bi-plus-lg"></i> Add User
+    </a>
+  </div>
+  <table class="table table-bordered table-hover mt-3">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Roles</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phone || 'N/A' }}</td>
+      <td>
+          <span *ngFor="let role of user.roles; let isLast = last">
+            {{ role }}{{ !isLast ? ', ' : '' }}
+          </span>
+      </td>
+      <td>{{ user.createdAt | date:'short' }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-2"
+                (click)="viewDetails(user.id)">
+          View
+        </button>
+        <button class="btn btn-danger btn-sm"
+                (click)="deleteUser(user.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="users.length === 0">
+      <td colspan="7" class="text-center">No users found</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

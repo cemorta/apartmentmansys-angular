@@ -11,6 +11,7 @@ import { ApartmentListComponent } from './apartment-list/apartment-list.componen
 import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
 import { ApartmentCreateComponent } from './apartment-create/apartment-create.component';
 import { CreateFlatComponent } from './components/create-flat/create-flat.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateFlatComponent } from './components/create-flat/create-flat.compon
     ApartmentListComponent,
     ApartmentDetailComponent,
     ApartmentCreateComponent,
-    CreateFlatComponent
+    CreateFlatComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
