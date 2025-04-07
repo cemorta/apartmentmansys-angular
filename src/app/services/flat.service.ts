@@ -14,4 +14,6 @@ export class FlatService {
   createFlat(flat: Flat): Observable<Flat> {
     return this.http.post<Flat>(`${this.apiUrl}/create`, flat);
   }
+
+  
 }

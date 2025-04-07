@@ -26,4 +26,8 @@ export class ApartmentService {
   deleteApartment(id: number) {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  deleteFlat(flatId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete/${flatId}`);
+  }
 }

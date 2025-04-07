@@ -57,11 +57,6 @@ export class ApartmentDetailComponent implements OnInit {
     this.router.navigate([`/apartments/${this.apartmentId}/create-flat`]);
   }
 
-  viewFlatDetails(flatId: number): void {
-    console.log('Viewing flat details for ID:', flatId);
-    // this.router.navigate([`flats/${flatId}`]);
-  }
-
   editFlat(flatId: number): void {
     console.log('Editing flat with ID:', flatId);
     // this.router.navigate([`flats/${flatId}/edit`]);
@@ -70,7 +65,16 @@ export class ApartmentDetailComponent implements OnInit {
   removeFlat(flatId: number): void {
     if (confirm('Are you sure you want to remove this flat?')) {
       console.log('Removing flat with ID:', flatId);
-      // this.flatService.deleteFlat(flatId).subscribe(...);
+      this.apartmentService.deleteFlat(flatId).subscribe({
+        next: () => {
+          console.log('Flat removed successfully');
+          this.apartment?.apartmentFlats?.filter(flat => flat.id !== flatId);
+        },
+        error: (err) => {
+          console.error('Failed to remove flat', err);
+          alert('Failed to remove. Try again later.');
+        }
+      });
     }
   }
 
