@@ -68,7 +68,9 @@ export class ApartmentDetailComponent implements OnInit {
       this.apartmentService.deleteFlat(flatId).subscribe({
         next: () => {
           console.log('Flat removed successfully');
-          this.apartment?.apartmentFlats?.filter(flat => flat.id !== flatId);
+          if (this.apartment && this.apartment.apartmentFlats) {
+            this.apartment.apartmentFlats = this.apartment.apartmentFlats.filter(flat => flat.id !== flatId);
+          }
         },
         error: (err) => {
           console.error('Failed to remove flat', err);

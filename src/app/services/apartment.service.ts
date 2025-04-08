@@ -8,7 +8,7 @@ import { Apartment } from '../models/apartment.model';
 })
 export class ApartmentService {
   private apiUrl = 'http://localhost:8081/api/apartments';
-
+  private apiFlatUrl = 'http://localhost:8081/api/flats';
   constructor(private http: HttpClient) {}
 
   getApartments(): Observable<Apartment[]> {
@@ -28,6 +28,6 @@ export class ApartmentService {
   }
 
   deleteFlat(flatId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${flatId}`);
+    return this.http.delete<void>(`${this.apiFlatUrl}/${flatId}`);
   }
 }
