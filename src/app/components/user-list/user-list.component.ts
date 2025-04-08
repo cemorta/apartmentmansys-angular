@@ -48,4 +48,18 @@ export class UserListComponent implements OnInit {
       });
     }
   }
+
+  getUserProfiles(user: User): string[] {
+    const profiles = [];
+    if (user.flatOwnerProfile) profiles.push('Flat Owner');
+    if (user.adminProfile) profiles.push('Admin');
+    if (user.residentProfile) profiles.push('Resident');
+    if (user.staffProfile) profiles.push('Staff');
+    return profiles;
+  }
+
+  getSideRoles(user: User): string {
+    if (!user.roles || user.roles.length === 0) return 'None';
+    return user.roles.join(', ');
+  }
 }

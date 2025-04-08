@@ -12,7 +12,8 @@
       <th>Name</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>Roles</th>
+      <th>Profiles</th>
+      <th>Side Roles</th>
       <th>Created At</th>
       <th>Action</th>
     </tr>
@@ -24,10 +25,12 @@
       <td>{{ user.email }}</td>
       <td>{{ user.phone || 'N/A' }}</td>
       <td>
-          <span *ngFor="let role of user.roles; let isLast = last">
-            {{ role }}{{ !isLast ? ', ' : '' }}
+          <span *ngFor="let profile of getUserProfiles(user); let isLast = last">
+            {{ profile }}{{ !isLast ? ', ' : '' }}
           </span>
+        <span *ngIf="getUserProfiles(user).length === 0">None</span>
       </td>
+      <td>{{ getSideRoles(user) }}</td>
       <td>{{ user.createdAt | date:'short' }}</td>
       <td>
         <button class="btn btn-primary btn-sm me-2"
@@ -41,7 +44,7 @@
       </td>
     </tr>
     <tr *ngIf="users.length === 0">
-      <td colspan="7" class="text-center">No users found</td>
+      <td colspan="8" class="text-center">No users found</td>
     </tr>
     </tbody>
   </table>
