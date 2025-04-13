@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -11,25 +13,99 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
+  filterForm: FormGroup;
+
+  // Pagination
+  totalItems: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 10;
+
+  // Filter options
+  profileOptions = ['All', 'Flat Owner', 'Admin', 'Resident', 'Staff'];
+  roleOptions = ['All', 'Apartment Manager', 'Super Admin'];
 
   constructor(
     private userService: UserService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.filterForm = this.fb.group({
+      search: [''],
+      profile: ['All'],
+      role: ['All']
+    });
+  }
 
   ngOnInit(): void {
+    this.setupFormListeners();
     this.loadUsers();
   }
 
+  setupFormListeners(): void {
+    // Apply debounce to search field to prevent too many API calls
+    this.filterForm.get('search')?.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
+        this.currentPage = 0;
+        this.loadUsers();
+      });
+
+    // Immediate filtering for dropdown selects
+    this.filterForm.get('profile')?.valueChanges.subscribe(() => {
+      this.currentPage = 0;
+      this.loadUsers();
+    });
+
+    this.filterForm.get('role')?.valueChanges.subscribe(() => {
+      this.currentPage = 0;
+      this.loadUsers();
+    });
+  }
+
   loadUsers(): void {
-    this.userService.getUsers().subscribe({
-      next: (data) => {
-        this.users = data;
+    const searchValue = this.filterForm.get('search')?.value;
+    let profileValue = this.filterForm.get('profile')?.value;
+    let roleValue = this.filterForm.get('role')?.value;
+
+    // Convert "All" to null for API filtering
+    profileValue = profileValue === 'All' ? null : profileValue;
+    roleValue = roleValue === 'All' ? null : roleValue;
+
+    this.userService.getUsersFiltered(
+      searchValue,
+      profileValue,
+      roleValue,
+      this.currentPage,
+      this.pageSize
+    ).subscribe({
+      next: (response) => {
+        this.users = response.content;
+        this.totalItems = response.totalElements;
+        this.totalPages = response.totalPages;
       },
       error: (err) => {
         console.error('Error fetching users:', err);
       }
     });
+  }
+
+  clearFilters(): void {
+    this.filterForm.reset({
+      search: '',
+      profile: 'All',
+      role: 'All'
+    });
+    this.currentPage = 0;
+    this.loadUsers();
+  }
+
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.loadUsers();
   }
 
   viewDetails(id: number): void {
@@ -40,7 +116,7 @@ export class UserListComponent implements OnInit {
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(id).subscribe({
         next: () => {
-          this.users = this.users.filter(user => user.id !== id);
+          this.loadUsers(); // Reload the list after deletion
         },
         error: (err) => {
           console.error('Error deleting user:', err);

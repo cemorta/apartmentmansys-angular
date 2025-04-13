@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -13,6 +13,24 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
+  }
+
+  getUsersFiltered(
+    search?: string,
+    profile?: string,
+    role?: string,
+    page: number = 0,
+    size: number = 10
+  ): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    if (search) params = params.set('search', search);
+    if (profile) params = params.set('profile', profile);
+    if (role) params = params.set('role', role);
+
+    return this.http.get<any>(`${this.apiUrl}/filter`, { params });
   }
 
   getUserById(id: number): Observable<User> {
