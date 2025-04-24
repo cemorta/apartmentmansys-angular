@@ -7,9 +7,10 @@ import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.comp
 import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
 import {CreateFlatComponent} from './components/create-flat/create-flat.component';
 import {UserListComponent} from './components/user-list/user-list.component';
+import {LoginComponent} from './components/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: FlatFormComponent },
+  { path: '', component: LoginComponent },
   // { path: "browse-flats", component: FlatFormComponent}
   { path: 'apartments', component: ApartmentListComponent },
   { path: 'users', component: UserListComponent },
