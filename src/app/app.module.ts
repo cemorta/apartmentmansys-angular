@@ -13,6 +13,7 @@ import { ApartmentCreateComponent } from './apartment-create/apartment-create.co
 import { CreateFlatComponent } from './components/create-flat/create-flat.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { LoginComponent } from './components/login/login.component';
     ApartmentCreateComponent,
     CreateFlatComponent,
     UserListComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

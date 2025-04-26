@@ -8,6 +8,7 @@ import {ApartmentCreateComponent} from './apartment-create/apartment-create.comp
 import {CreateFlatComponent} from './components/create-flat/create-flat.component';
 import {UserListComponent} from './components/user-list/user-list.component';
 import {LoginComponent} from './components/login/login.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'apartments/:id', component: ApartmentDetailComponent },
   { path: 'apartment/create', component: ApartmentCreateComponent },
   { path: 'apartments/:id/create-flat', component: CreateFlatComponent },
+  { path: 'users/add', component: AddUserComponent },
 ];
 
 @NgModule({
