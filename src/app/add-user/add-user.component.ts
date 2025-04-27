@@ -26,7 +26,6 @@ export class AddUserComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       passwordHash: ['', Validators.required],
-      role: ['', Validators.required],
     });
   }
 
@@ -39,7 +38,6 @@ export class AddUserComponent {
         email: formValue.email,
         phone: formValue.phone,
         passwordHash: formValue.passwordHash,
-        role_id:formValue.role // <<<<< DİKKAT
       };
   
       this.userService.createUser(this.newUser).subscribe({
