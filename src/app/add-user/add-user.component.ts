@@ -1,66 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-add-user',
   standalone: true,
   templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.css',
-  imports: [CommonModule, ReactiveFormsModule]
+  styleUrls: ['./add-user.component.css'],
+  imports: [ReactiveFormsModule, CommonModule]
 })
-export class AddUserComponent implements OnInit {
-  addUserForm!: FormGroup;
-
-  profileOptions = ['Flat Owner', 'Admin', 'Resident', 'Staff'];
-  roleOptions = ['Apartment Manager', 'Super Admin'];
-
-  showRoleSelect = false;
-
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.addUserForm = this.fb.group({
+export class AddUserComponent {
+  userForm: FormGroup;
+  newUser:any = {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      profile: ['', Validators.required],
-      role: [''] // role boş başlasın
-    });
-
-    this.addUserForm.get('profile')?.valueChanges.subscribe((selectedProfile) => {
-      if (selectedProfile === 'Admin') {
-        this.showRoleSelect = true;
-        this.addUserForm.get('role')?.setValue(''); // boş bırak, kullanıcı seçsin
-      } else {
-        this.showRoleSelect = false;
-        this.addUserForm.get('role')?.setValue(selectedProfile); // role = profile
-      }
+      phone: [''],
+      passwordHash: ['', Validators.required],
+      role: ['', Validators.required],
     });
   }
 
-  onSubmit(): void {
-    if (this.addUserForm.valid) {
-      const newUser = this.addUserForm.value;
-
-      this.userService.createUser(newUser).subscribe({
+  onSubmit() {
+    if (this.userForm.valid) {
+      const formValue = this.userForm.value;
+      this.newUser = {
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+        email: formValue.email,
+        phone: formValue.phone,
+        passwordHash: formValue.passwordHash,
+        role_id:formValue.role // <<<<< DİKKAT
+      };
+  
+      this.userService.createUser(this.newUser).subscribe({
         next: () => {
           alert('User created successfully!');
-          this.router.navigate(['/users']); // Redirect back to user list
+          this.router.navigate(['/users']);
         },
         error: (err: any) => {
-          console.error('Error creating user:', err);
-          alert('Failed to create user.');
+          console.error(err);
+          alert('Something went wrong.');
         }
       });
-    } else {
-      this.addUserForm.markAllAsTouched();
     }
   }
+
+  
+
 }
+
 
 //private fb: FormBuilder,
 //private userService: UserService,

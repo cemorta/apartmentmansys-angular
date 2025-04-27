@@ -1,55 +1,47 @@
 <div class="container mt-4">
-    <h3>Add User</h3>
-    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
-      
-      <div class="mb-3">
-        <label for="firstName" class="form-label">First Name</label>
-        <input id="firstName" type="text" class="form-control" formControlName="firstName">
-        <div class="text-danger" *ngIf="addUserForm.get('firstName')?.invalid && addUserForm.get('firstName')?.touched">
-          First name is required
-        </div>
-      </div>
+  <h2>Add New User</h2>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>First Name</label>
+      <input type="text" formControlName="firstName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Last Name</label>
+      <input type="text" formControlName="lastName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" formControlName="email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Phone</label>
+      <input type="text" formControlName="phone" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" formControlName="passwordHash" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Role</label>
+      <select class="form-control"  formControlName="role" >
+        <option value="Super Admin">Super Admin</option>
+        <option value="Apartment Manager">Apartment Manager</option>        
+        <option value="Resident">Resident</option>
+        <option value="Staff">Staff</option>
+        <option value="Flat Owner">Flat Owner</option>
+      </select>
+    </div>
+
+    
   
-      <div class="mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
-        <input id="lastName" type="text" class="form-control" formControlName="lastName">
-        <div class="text-danger" *ngIf="addUserForm.get('lastName')?.invalid && addUserForm.get('lastName')?.touched">
-          Last name is required
-        </div>
-      </div>
-  
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input id="email" type="email" class="form-control" formControlName="email">
-        <div class="text-danger" *ngIf="addUserForm.get('email')?.invalid && addUserForm.get('email')?.touched">
-          Valid email is required
-        </div>
-      </div>
-  
-      <!-- Profile Select -->
-      <div class="mb-3">
-        <label for="profile" class="form-label">Profile</label>
-        <select id="profile" class="form-select" formControlName="profile">
-          <option value="">Select Profile</option>
-          <option *ngFor="let option of profileOptions" [value]="option">{{ option }}</option>
-        </select>
-      </div>
-  
-      <!-- Role Select (only visible if Admin selected) -->
-      <div class="mb-3" *ngIf="showRoleSelect">
-        <label for="role" class="form-label">Role</label>
-        <select id="role" class="form-select" formControlName="role">
-          <option value="">Select Role</option>
-          <option *ngFor="let option of roleOptions" [value]="option">{{ option }}</option>
-        </select>
-        <div class="text-danger" *ngIf="addUserForm.get('role')?.invalid && addUserForm.get('role')?.touched">
-          Role is required for Admin profile
-        </div>
-      </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="addUserForm.invalid">Submit</button>
-    </form>
-  </div>
-  
-  
+
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Create User</button>
+  </form>
+</div>
+
   
