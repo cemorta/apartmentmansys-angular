@@ -44,7 +44,7 @@ export class LoginComponent {
 
     this.isLoading = true;
     this.loginError = '';
-
+    
     const credentials = {
       email: this.email?.value,
       password: this.password?.value
@@ -54,9 +54,14 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           this.isLoading = false;
-          // Store user info in local storage for session management
-          localStorage.setItem('currentUser', JSON.stringify(response));
-          this.router.navigate(['/apartments']);
+          const token = response.token;
+            if (token) {
+              localStorage.setItem('token', token); // JWT token saklanıyor
+              this.loginError = '';
+              this.router.navigate(['/apartments']);
+            } else {
+              this.loginError = 'Token not received.';
+            }
         },
         error: (error) => {
           this.isLoading = false;
