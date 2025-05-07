@@ -1,38 +1,88 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav *ngIf="authService.isLoggedIn()" class="navbar navbar-expand-lg navbar-dark"
+     [ngClass]="{'bg-dark': authService.isAdmin(), 'bg-primary': !authService.isAdmin()}">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/home">Apartment Manager</a>
+    <a class="navbar-brand" [routerLink]="authService.isAdmin() ? '/admin/dashboard' : '/user/dashboard'">
+      Apartment Manager
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Admin Navigation Menu -->
+      <ul *ngIf="authService.isAdmin()" class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/apartments" routerLinkActive="active">Apartments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/maintenance" routerLinkActive="active">Maintenance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/amenities" routerLinkActive="active">Amenities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/payments" routerLinkActive="active">Payments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">Settings</a>
+        </li>
+      </ul>
+
+      <!-- Regular User Navigation Menu -->
+      <ul *ngIf="!authService.isAdmin()" class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li *ngIf="authService.isResident() || authService.isFlatOwner()" class="nav-item">
+          <a class="nav-link" routerLink="/user/my-apartment" routerLinkActive="active">My Apartment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/maintenance-requests" routerLinkActive="active">Maintenance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/amenities-booking" routerLinkActive="active">Amenities</a>
+        </li>
+        <li *ngIf="authService.isResident() || authService.isFlatOwner()" class="nav-item">
+          <a class="nav-link" routerLink="/user/my-payments" routerLinkActive="active">Payments</a>
+        </li>
+        <li *ngIf="authService.isStaff()" class="nav-item">
+          <a class="nav-link" routerLink="/user/staff-tasks" routerLinkActive="active">Tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user/contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+
+      <!-- User Profile Dropdown (For both admin and regular users) -->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/apartments" routerLinkActive="active">Apartments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/maintenance" routerLinkActive="active">Maintenance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/amenities" routerLinkActive="active">Amenities</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/payments" routerLinkActive="active">Payments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            {{ authService.getCurrentUser()?.firstName || 'Profile' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+            <li>
+              <a class="dropdown-item" [routerLink]="authService.isAdmin() ? '/admin/profile' : '/user/profile'">
+                My Profile
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<!-- Main Content -->
+<div [ngClass]="{'pt-5': authService.isLoggedIn()}">
+  <router-outlet></router-outlet>
+</div>

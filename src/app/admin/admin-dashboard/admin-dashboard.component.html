@@ -1,0 +1,108 @@
+<!-- admin-dashboard.component.html -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h4>Admin Dashboard</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <div class="card text-white bg-primary">
+                <div class="card-body">
+                  <h5 class="card-title">Apartments</h5>
+                  <p class="card-text display-4">24</p>
+                  <a routerLink="/admin/apartments" class="btn btn-light btn-sm">Manage</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="card text-white bg-success">
+                <div class="card-body">
+                  <h5 class="card-title">Users</h5>
+                  <p class="card-text display-4">48</p>
+                  <a routerLink="/admin/users" class="btn btn-light btn-sm">Manage</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="card text-white bg-info">
+                <div class="card-body">
+                  <h5 class="card-title">Maintenance</h5>
+                  <p class="card-text display-4">12</p>
+                  <a routerLink="/admin/maintenance" class="btn btn-light btn-sm">Manage</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="card text-white bg-warning">
+                <div class="card-body">
+                  <h5 class="card-title">Payments</h5>
+                  <p class="card-text display-4">32</p>
+                  <a routerLink="/admin/payments" class="btn btn-light btn-sm">Manage</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  Recent Maintenance Requests
+                </div>
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Plumbing issue in Apt 301
+                      <span class="badge bg-danger rounded-pill">High</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Broken window in Apt 205
+                      <span class="badge bg-warning rounded-pill">Medium</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Light fixture replacement in Apt 112
+                      <span class="badge bg-info rounded-pill">Low</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <a routerLink="/admin/maintenance" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  Recent Payments
+                </div>
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      John Smith (Apt 301)
+                      <span class="text-success">$1250.00</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Emma Johnson (Apt 205)
+                      <span class="text-success">$950.00</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Michael Brown (Apt 112)
+                      <span class="text-success">$1100.00</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <a routerLink="/admin/payments" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

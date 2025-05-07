@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FlatUserComponent } from './flat-user/flat-user.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FlatFormComponent } from './flat-form/flat-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApartmentListComponent } from './apartment-list/apartment-list.component';
@@ -12,8 +12,11 @@ import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.co
 import { ApartmentCreateComponent } from './apartment-create/apartment-create.component';
 import { CreateFlatComponent } from './components/create-flat/create-flat.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { LoginComponent } from './components/login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { SelectLoginComponent } from './select-login/select-login.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { AddUserComponent } from './add-user/add-user.component';
     ApartmentCreateComponent,
     CreateFlatComponent,
     UserListComponent,
-    LoginComponent,
+    AdminLoginComponent,
+    SelectLoginComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     ReactiveFormsModule,
   ],
   providers: [
-    // provideHttpClient(),
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+      // provideHttpClient(),
     ],
   bootstrap: [AppComponent]
 })

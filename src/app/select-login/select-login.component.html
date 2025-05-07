@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6 text-center">
+      <h1 class="mb-4">Welcome to Apartment Manager</h1>
+      <p class="lead mb-5">Please select the appropriate login option</p>
+
+      <div class="row">
+        <!-- Admin Login Option -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 selection-card">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">Admin Login</h3>
+              <p class="card-text flex-grow-1">For building administrators, property managers and system administrators.</p>
+              <button (click)="navigateToAdminLogin()" class="btn btn-dark btn-lg mt-3">
+                Admin Access
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Login Option -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 selection-card">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">Resident Login</h3>
+              <p class="card-text flex-grow-1">For residents, flat owners and maintenance staff.</p>
+              <button (click)="navigateToUserLogin()" class="btn btn-primary btn-lg mt-3">
+                Resident Access
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
