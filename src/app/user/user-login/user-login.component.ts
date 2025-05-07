@@ -30,7 +30,7 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
     // Redirect if already logged in
     if (this.authService.isLoggedIn()) {
-      this.redirectBasedOnRole();
+      this.redirectToUserDashboard();
     }
   }
 
@@ -48,7 +48,7 @@ export class UserLoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (response) => {
         this.loading = false;
-        this.redirectBasedOnRole();
+        this.redirectToUserDashboard();
       },
       error: (error) => {
         this.loading = false;
@@ -57,12 +57,8 @@ export class UserLoginComponent implements OnInit {
     });
   }
 
-  private redirectBasedOnRole(): void {
-    if (this.authService.isAdmin()) {
-      this.router.navigate(['/admin/dashboard']);
-    } else {
-      this.router.navigate(['/user/dashboard']);
-    }
+  private redirectToUserDashboard(): void {
+    this.router.navigate(['/user/dashboard']);
   }
 
   goBack(): void {

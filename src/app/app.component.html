@@ -1,7 +1,7 @@
 <nav *ngIf="authService.isLoggedIn()" class="navbar navbar-expand-lg navbar-dark"
-     [ngClass]="{'bg-dark': authService.isAdmin(), 'bg-primary': !authService.isAdmin()}">
+     [ngClass]="{'bg-dark': !isUserRoute(), 'bg-primary': isUserRoute()}">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="authService.isAdmin() ? '/admin/dashboard' : '/user/dashboard'">
+    <a class="navbar-brand" [routerLink]="!isUserRoute() ? '/admin/dashboard' : '/user/dashboard'">
       Apartment Manager
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -11,7 +11,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <!-- Admin Navigation Menu -->
-      <ul *ngIf="authService.isAdmin()" class="navbar-nav me-auto">
+      <ul *ngIf="!isUserRoute()" class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
@@ -36,7 +36,7 @@
       </ul>
 
       <!-- Regular User Navigation Menu -->
-      <ul *ngIf="!authService.isAdmin()" class="navbar-nav me-auto">
+      <ul *ngIf="isUserRoute()" class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/user/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
@@ -69,7 +69,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
             <li>
-              <a class="dropdown-item" [routerLink]="authService.isAdmin() ? '/admin/profile' : '/user/profile'">
+              <a class="dropdown-item" [routerLink]="!isUserRoute() ? '/admin/profile' : '/user/profile'">
                 My Profile
               </a>
             </li>

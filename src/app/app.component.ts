@@ -20,4 +20,8 @@ export class AppComponent {
     this.authService.logout();
     this.router.navigate(['/select-login']);
   }
+
+  isUserRoute(): boolean {
+    return this.router.url.includes('/user');
+  }
 }
