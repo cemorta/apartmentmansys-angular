@@ -7,6 +7,7 @@ import {
   StaffMaintenanceAssignmentsComponent
 } from './staff-maintenance-assignments/staff-maintenance-assignments.component';
 import { UserMaintenanceRequestsListComponent } from './user-maintenance-requests-list/user-maintenance-requests-list.component';
+import { UserMaintenanceRequestDetailComponent } from './user-maintenance-request-detail/user-maintenance-request-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
     path: 'my-maintenance-requests',
     component: UserMaintenanceRequestsListComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'my-maintenance-requests/:id', component: UserMaintenanceRequestDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

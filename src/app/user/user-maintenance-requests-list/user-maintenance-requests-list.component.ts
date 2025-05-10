@@ -85,7 +85,7 @@ export class UserMaintenanceRequestsListComponent implements OnInit {
   }
 
   viewDetails(id: number): void {
-    this.router.navigate(['/admin/maintenance', id]);
+    this.router.navigate(['/user/my-maintenance-requests', id]);
   }
 
   deleteRequest(id: number): void {
