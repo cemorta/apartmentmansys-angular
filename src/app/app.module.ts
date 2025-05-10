@@ -17,6 +17,7 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SelectLoginComponent } from './select-login/select-login.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
+import { StaffMaintenanceAssignmentsComponent } from './user/staff-maintenance-assignments/staff-maintenance-assignments.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
     AdminLoginComponent,
     SelectLoginComponent,
     UserDashboardComponent,
+    StaffMaintenanceAssignmentsComponent,
   ],
   imports: [
     BrowserModule,
