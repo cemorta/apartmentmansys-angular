@@ -4,11 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { UserMaintenanceRequestsListComponent } from './user-maintenance-requests-list/user-maintenance-requests-list.component';
 
 
 @NgModule({
   declarations: [
-    UserLoginComponent
+    UserLoginComponent,
+    UserMaintenanceRequestsListComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <h3>Maintenance Requests</h3>
+    <a routerLink="/maintenance-requests/add" class="btn btn-success">
+      <i class="bi bi-plus-lg"></i> New Request
+    </a>
+  </div>
+
+  <!-- Filter Form -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form [formGroup]="filterForm" class="row g-3">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by description or resident..."
+              formControlName="search">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <select class="form-select" formControlName="category">
+            <option *ngFor="let option of categoryOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select class="form-select" formControlName="priority">
+            <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="col-md-1">
+          <select class="form-select" formControlName="status">
+            <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+            <i class="bi bi-x-lg"></i>Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Maintenance Requests Table -->
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Flat ID</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of maintenanceRequests">
+      <td>{{ request.id }}</td>
+      <td>{{ request.flatId }}</td>
+      <td><span [ngClass]="getCategoryClass(request.category)">{{ enumDisplayService.getCategoryDisplay(request.category) }}</span></td>
+      <td>{{ request.description }}</td>
+      <td><span [ngClass]="getPriorityClass(request.priority)">{{ enumDisplayService.getPriorityDisplay(request.priority) }}</span></td>
+      <td><span [ngClass]="getStatusClass(request.status)">{{ enumDisplayService.getStatusDisplay(request.status) }}</span></td>
+      <td>{{ request.createdAt | date:'short' }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-2"
+                (click)="viewDetails(request.id)">
+          <i class="bi bi-eye"></i> View
+        </button>
+        <button class="btn btn-danger btn-sm"
+                (click)="deleteRequest(request.id)">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="maintenanceRequests.length === 0">
+      <td colspan="8" class="text-center">No maintenance requests found</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="totalPages > 0">
+    <div>
+      <span class="me-2">Showing {{ maintenanceRequests.length }} of {{ totalItems }} requests</span>
+    </div>
+    <nav>
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 0">
+          <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+        </li>
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+            [class.active]="i === currentPage">
+          <button class="page-link" (click)="changePage(i)">{{ i + 1 }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+          <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+

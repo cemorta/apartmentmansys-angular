@@ -6,6 +6,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import {
   StaffMaintenanceAssignmentsComponent
 } from './staff-maintenance-assignments/staff-maintenance-assignments.component';
+import { UserMaintenanceRequestsListComponent } from './user-maintenance-requests-list/user-maintenance-requests-list.component';
 
 const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'staff-tasks',
     component: StaffMaintenanceAssignmentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'my-maintenance-requests',
+    component: UserMaintenanceRequestsListComponent,
     canActivate: [AuthGuard]
   }
 ];
