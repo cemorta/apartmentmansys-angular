@@ -51,6 +51,10 @@ export class MaintenanceRequestService {
     return this.http.get<MaintenanceRequest>(`${this.apiUrl}/${id}`);
   }
 
+  getResidentMaintenanceRequestById(id: number): Observable<MaintenanceRequest[]> {
+    return this.http.get<MaintenanceRequest[]>(`${this.apiUrl}/by-resident/${id}`);
+  }
+
   createMaintenanceRequest(request: Partial<MaintenanceRequest>): Observable<MaintenanceRequest> {
     return this.http.post<MaintenanceRequest>(this.apiUrl, request);
   }

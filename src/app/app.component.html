@@ -43,8 +43,8 @@
         <li *ngIf="authService.isResident() || authService.isFlatOwner()" class="nav-item">
           <a class="nav-link" routerLink="/user/my-apartment" routerLinkActive="active">My Apartment</a>
         </li>
-        <li *ngIf="!authService.isStaff() && authService.isResident() && authService.isFlatOwner()" class="nav-item">
-          <a class="nav-link" routerLink="/user/maintenance-requests" routerLinkActive="active">Maintenance</a>
+        <li *ngIf="!authService.isStaff() && (authService.isResident() || authService.isFlatOwner())" class="nav-item">
+          <a class="nav-link" routerLink="/user/my-maintenance-requests" routerLinkActive="active">Maintenance</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/user/amenities-booking" routerLinkActive="active">Amenities</a>
