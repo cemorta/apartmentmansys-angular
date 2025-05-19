@@ -1,1 +1,163 @@
-<p>user-dashboard works!</p>
+<div class="dashboard-container" [class.loading]="loading">
+  <!-- Loading and error states -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Loading your dashboard...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    <i class="fas fa-exclamation-triangle"></i>
+    <p>Sorry, we couldn't load your maintenance data. Please try again later.</p>
+    <button class="btn-primary" (click)="refreshData()">Try Again</button>
+  </div>
+
+  <!-- Dashboard header -->
+  <header class="dashboard-header">
+    <div class="dashboard-intro">
+      <h1>Maintenance Dashboard</h1>
+      <p>Welcome back! Here's an overview of your maintenance requests.</p>
+    </div>
+    <button class="btn-refresh" (click)="refreshData()" title="Refresh data">
+      <i class="fas fa-sync-alt"></i> Refresh
+    </button>
+  </header>
+
+  <!-- Stats cards -->
+  <div class="stats-cards">
+    <div class="stat-card total">
+      <div class="stat-icon">
+        <i class="fas fa-clipboard-list"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Total Requests</h3>
+        <p class="stat-value">{{totalRequests}}</p>
+      </div>
+    </div>
+    
+    <div class="stat-card open">
+      <div class="stat-icon">
+        <i class="fas fa-exclamation-circle"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Open</h3>
+        <p class="stat-value">{{openRequests}}</p>
+      </div>
+    </div>
+    
+    <div class="stat-card in-progress">
+      <div class="stat-icon">
+        <i class="fas fa-tools"></i>
+      </div>
+      <div class="stat-content">
+        <h3>In Progress</h3>
+        <p class="stat-value">{{inProgressRequests}}</p>
+      </div>
+    </div>
+    
+    <div class="stat-card completed">
+      <div class="stat-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Completed</h3>
+        <p class="stat-value">{{completedRequests}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts section -->
+  <div class="charts-section">
+    <!-- Status chart -->
+    <div class="chart-container">
+      <h2>Request Status</h2>
+      <div class="chart-wrapper">
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+    
+    <!-- Category chart -->
+    <div class="chart-container">
+      <h2>Request Categories</h2>
+      <div class="chart-wrapper">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Monthly trend chart -->
+  <div class="full-width-chart">
+    <h2>Request Trend</h2>
+    <div class="chart-wrapper">
+      <canvas id="monthlyChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Recent requests table -->
+  <div class="recent-requests">
+    <div class="section-header">
+      <h2>Recent Maintenance Requests</h2>
+      <a class="view-all-link" routerLink="/maintenance/requests">View All</a>
+    </div>
+    
+    <div class="requests-table-wrapper">
+      <table *ngIf="recentRequests.length > 0" class="requests-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of recentRequests">
+            <td>{{request.id}}</td>
+            <td>
+              <a [routerLink]="['/maintenance/requests', request.id]">{{ request.description }}</a>
+
+            </td>
+            <td>{{request.category}}</td>
+            <td>
+              <span class="priority-badge {{request.priority.toLowerCase()}}">
+                {{request.priority}}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(request.status)">
+                {{request.status}}
+              </span>
+            </td>
+            <td>{{request.createdAt | date:'MMM d, y'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div *ngIf="!loading && recentRequests.length === 0" class="no-requests">
+        <i class="fas fa-inbox"></i>
+        <p>You don't have any maintenance requests yet.</p>
+        <button class="btn-primary" routerLink="/maintenance/requests/new">Create New Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+      <button class="action-btn create" routerLink="/maintenance/requests/new">
+        <i class="fas fa-plus"></i>
+        <span>New Request</span>
+      </button>
+      <button class="action-btn view" routerLink="/maintenance/requests">
+        <i class="fas fa-list"></i>
+        <span>All Requests</span>
+      </button>
+      <button class="action-btn help" routerLink="/help">
+        <i class="fas fa-question-circle"></i>
+        <span>Get Help</span>
+      </button>
+    </div>
+  </div>
+</div>

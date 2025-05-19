@@ -31,7 +31,6 @@ import { StaffMaintenanceAssignmentsComponent } from './user/staff-maintenance-a
     UserListComponent,
     AdminLoginComponent,
     SelectLoginComponent,
-    UserDashboardComponent,
     StaffMaintenanceAssignmentsComponent,
   ],
   imports: [
