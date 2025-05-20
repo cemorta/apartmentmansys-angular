@@ -19,6 +19,13 @@ export class DuePaymentService {
   }
 
   /**
+   * Get all due payments for a user
+   */
+  getDuePaymentsByUserId(userId: number): Observable<DuePayment[]> {
+    return this.http.get<DuePayment[]>(`${environment.apiUrl}/api/due-payments/user/${userId}`);
+  }
+
+  /**
    * Get all due payments for a specific flat
    */
   getDuePaymentsByFlatId(flatId: number): Observable<DuePayment[]> {

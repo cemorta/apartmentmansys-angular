@@ -1,0 +1,68 @@
+<!-- flat-dues.component.html -->
+<div class="container-fluid mt-4">
+  <h2 class="mb-4">Flat Dues</h2>
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading dues...</p>
+  </div>
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="error = ''"></button>
+  </div>
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="successMessage = ''"></button>
+  </div>
+  <!-- No Dues Message -->
+  <div *ngIf="!loading && duePayments.length === 0" class="alert alert-info">
+    No dues found for this flat.
+  </div>
+  <!-- Dues List -->
+  <div *ngIf="!loading && duePayments.length > 0" class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="bg-primary text-white">
+      <tr>
+        <th style="width: 20%">Apartment</th>
+        <th style="width: 10%">Flat</th>
+        <th style="width: 15%">Period</th>
+        <th style="width: 15%">Amount</th>
+        <th style="width: 20%">Status</th>
+        <th style="width: 20%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let payment of duePayments">
+        <td>{{ payment.flat?.apartment?.buildingName }}</td>
+        <td>{{ payment.flat?.flatNumber }}</td>
+        <td class="fw-bold">{{ payment.due?.period }}</td>
+        <td>{{ payment.due?.cost | currency }}</td>
+        <td>
+            <span *ngIf="payment.isPaymentComplete" class="badge bg-success">
+              Paid <span *ngIf="payment.paidAt">on {{ payment.paidAt | date:'short' }}</span>
+            </span>
+          <span *ngIf="!payment.isPaymentComplete" class="badge bg-danger">
+              Unpaid
+            </span>
+        </td>
+        <td>
+          <button *ngIf="!payment.isPaymentComplete"
+                  class="btn btn-sm btn-primary"
+                  [disabled]="processingPayment"
+                  (click)="markAsPaid(payment.id)">
+            <span *ngIf="processingPayment" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            Mark as Paid
+          </button>
+          <span *ngIf="payment.isPaymentComplete" class="text-success">
+              <i class="bi bi-check-circle-fill me-1"></i> Payment Complete
+            </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -11,6 +11,7 @@ import { UserMaintenanceRequestsListComponent } from './user-maintenance-request
 import { UserMaintenanceRequestDetailComponent } from './user-maintenance-request-detail/user-maintenance-request-detail.component';
 import { UserMaintenanceRequestAddComponent } from './user-maintenance-request-add/user-maintenance-request-add.component';
 import { FlatDuesComponent } from './flat-dues/flat-dues.component';
+import { UserPaymentsComponent } from './user-payments/user-payments.component';
 
 const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'my-maintenance-requests/add', component: UserMaintenanceRequestAddComponent, canActivate: [AuthGuard] },
   { path: 'my-maintenance-requests/:id', component: UserMaintenanceRequestDetailComponent, canActivate: [AuthGuard] },
   { path: 'flats/:id', component: FlatDuesComponent, canActivate: [AuthGuard] },
-
+  { path: 'my-payments', component: UserPaymentsComponent, canActivate: [AuthGuard] },
 
 ];
 
