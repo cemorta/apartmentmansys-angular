@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ChatService} from '../../services/chat.service';
 
 interface ChatMessage {
   sender: 'user' | 'bot';
@@ -13,19 +14,21 @@ interface ChatMessage {
   styleUrl: './amenities-chat.component.css'
 })
 export class AmenitiesChatComponent {
- chatForm: FormGroup;
+  botResponse: string = '';
+
+  chatForm: FormGroup;
   messages: { text: string, sender: 'user' | 'bot' }[] = [];
 
   @ViewChild('chatContainer') chatContainer!: ElementRef;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private chatService: ChatService) {
     this.chatForm = this.fb.group({
       message: ['', Validators.required]
     });
 
     // Başlangıç mesajı
     this.messages.push({
-      text: 'Hi! How can I help you?',
+      text: 'Hi! How can I assist you with amenity reservations or related requests?',
       sender: 'bot'
     });
   }
@@ -34,14 +37,29 @@ export class AmenitiesChatComponent {
     const message = this.chatForm.get('message')?.value.trim();
     if (!message) return;
 
-    // Kullanıcı mesajı
+    // Add user message to chat
     this.messages.push({ text: message, sender: 'user' });
 
-    // Bot cevabı
-    this.messages.push({ text: 'Thanks, I got your request!', sender: 'bot' });
-
+    // Reset form early
     this.chatForm.reset();
-    this.scrollToBottom();
+
+    // Call API and add bot response ONLY after it returns
+    this.chatService.sendMessage(message).subscribe({
+      next: (response) => {
+        // Add bot message to chat only after we receive it
+        this.messages.push({ text: response, sender: 'bot' });
+        this.scrollToBottom();
+      },
+      error: (err) => {
+        console.error('Error from bot:', err);
+        // Optional: Add error message to chat
+        this.messages.push({
+          text: 'Sorry, I encountered an error. Please try again.',
+          sender: 'bot'
+        });
+        this.scrollToBottom();
+      }
+    });
   }
 
   scrollToBottom(): void {
