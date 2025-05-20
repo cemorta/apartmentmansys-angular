@@ -1,0 +1,96 @@
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(92vh - 64px);
+  max-width: 700px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-title {
+  padding: 16px;
+  margin: 0;
+  background-color: #007bff;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.bot {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.user {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  margin: 6px;
+  max-width: 75%;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+/* Bot mesajı görünümü */
+.bot .bubble {
+  background-color: #e4e6eb;
+  color: black;
+}
+
+/* Kullanıcı mesajı görünümü */
+.user .bubble {
+  background-color: #007bff;
+  color: white;
+  text-align: left;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #ccc;
+  background-color: #fafafa;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  margin-right: 10px;
+}
+
+.chat-input-area button {
+  padding: 12px 18px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chat-input-area button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}

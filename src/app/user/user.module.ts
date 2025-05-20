@@ -9,6 +9,7 @@ import { UserMaintenanceRequestDetailComponent } from './user-maintenance-reques
 import { UserMaintenanceRequestAddComponent } from './user-maintenance-request-add/user-maintenance-request-add.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { FlatDuesComponent } from './flat-dues/flat-dues.component';
+import { AmenitiesChatComponent } from './amenities-chat/amenities-chat.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FlatDuesComponent } from './flat-dues/flat-dues.component';
     UserMaintenanceRequestDetailComponent,
     UserMaintenanceRequestAddComponent,
     UserDashboardComponent,
-    FlatDuesComponent
+    FlatDuesComponent,
+    AmenitiesChatComponent
   ],
   imports: [
     CommonModule,

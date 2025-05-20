@@ -1,0 +1,19 @@
+<div class="chat-wrapper">
+  <h2 class="chat-title">Tesis Sohbet Asistanı</h2>
+
+  <div class="chat-box" #chatContainer>
+    <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+      <div class="bubble">{{ msg.text }}</div>
+    </div>
+  </div>
+
+  <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-input-area">
+    <input
+      type="text"
+      formControlName="message"
+      placeholder="Mesajınızı yazın..."
+      autocomplete="off"
+    />
+    <button type="submit" [disabled]="chatForm.invalid">Gönder</button>
+  </form>
+</div>
