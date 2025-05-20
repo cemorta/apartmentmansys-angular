@@ -14,7 +14,7 @@
   <!-- Dashboard header -->
   <header class="dashboard-header">
     <div class="dashboard-intro">
-      <h1>Maintenance Dashboard</h1>
+      <h1>Resident Dashboard</h1>
       <p>Welcome back! Here's an overview of your maintenance requests.</p>
     </div>
     <button class="btn-refresh" (click)="refreshData()" title="Refresh data">
@@ -84,80 +84,4 @@
     </div>
   </div>
   
-  <!-- Monthly trend chart -->
-  <div class="full-width-chart">
-    <h2>Request Trend</h2>
-    <div class="chart-wrapper">
-      <canvas id="monthlyChart"></canvas>
-    </div>
-  </div>
-
-  <!-- Recent requests table -->
-  <div class="recent-requests">
-    <div class="section-header">
-      <h2>Recent Maintenance Requests</h2>
-      <a class="view-all-link" routerLink="/maintenance/requests">View All</a>
-    </div>
-    
-    <div class="requests-table-wrapper">
-      <table *ngIf="recentRequests.length > 0" class="requests-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let request of recentRequests">
-            <td>{{request.id}}</td>
-            <td>
-              <a [routerLink]="['/maintenance/requests', request.id]">{{ request.description }}</a>
-
-            </td>
-            <td>{{request.category}}</td>
-            <td>
-              <span class="priority-badge {{request.priority.toLowerCase()}}">
-                {{request.priority}}
-              </span>
-            </td>
-            <td>
-              <span class="status-badge" [ngClass]="getStatusClass(request.status)">
-                {{request.status}}
-              </span>
-            </td>
-            <td>{{request.createdAt | date:'MMM d, y'}}</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <div *ngIf="!loading && recentRequests.length === 0" class="no-requests">
-        <i class="fas fa-inbox"></i>
-        <p>You don't have any maintenance requests yet.</p>
-        <button class="btn-primary" routerLink="/maintenance/requests/new">Create New Request</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Quick actions -->
-  <div class="quick-actions">
-    <h2>Quick Actions</h2>
-    <div class="action-buttons">
-      <button class="action-btn create" routerLink="/maintenance/requests/new">
-        <i class="fas fa-plus"></i>
-        <span>New Request</span>
-      </button>
-      <button class="action-btn view" routerLink="/maintenance/requests">
-        <i class="fas fa-list"></i>
-        <span>All Requests</span>
-      </button>
-      <button class="action-btn help" routerLink="/help">
-        <i class="fas fa-question-circle"></i>
-        <span>Get Help</span>
-      </button>
-    </div>
-  </div>
 </div>
