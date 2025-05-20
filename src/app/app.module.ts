@@ -7,9 +7,6 @@ import { FlatUserComponent } from './flat-user/flat-user.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FlatFormComponent } from './flat-form/flat-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApartmentListComponent } from './apartment-list/apartment-list.component';
-import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
-import { ApartmentCreateComponent } from './apartment-create/apartment-create.component';
 import { CreateFlatComponent } from './components/create-flat/create-flat.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
@@ -24,9 +21,6 @@ import { StaffMaintenanceAssignmentsComponent } from './user/staff-maintenance-a
     AppComponent,
     FlatUserComponent,
     FlatFormComponent,
-    ApartmentListComponent,
-    ApartmentDetailComponent,
-    ApartmentCreateComponent,
     CreateFlatComponent,
     UserListComponent,
     AdminLoginComponent,

@@ -1,0 +1,83 @@
+<!-- flat-dues.component.html -->
+<div class="container mt-4">
+  <h2 class="mb-4">Flat Dues</h2>
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading dues...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="error = ''"></button>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="successMessage = ''"></button>
+  </div>
+
+  <!-- No Dues Message -->
+  <div *ngIf="!loading && duePayments.length === 0" class="alert alert-info">
+    No dues found for this flat.
+  </div>
+
+  <!-- Dues List -->
+  <div *ngIf="!loading && duePayments.length > 0" class="card">
+    <div class="card-header bg-primary text-white">
+      <div class="row">
+        <div class="col-md-3">Period</div>
+        <div class="col-md-3">Amount</div>
+        <div class="col-md-3">Status</div>
+        <div class="col-md-3">Actions</div>
+      </div>
+    </div>
+    <div class="list-group list-group-flush">
+      <div *ngFor="let payment of duePayments" class="list-group-item">
+        <div class="row align-items-center">
+          <!-- Period -->
+          <div class="col-md-3">
+            <span class="fw-bold">{{ payment.due?.period }}</span>
+          </div>
+          <!-- Amount -->
+          <div class="col-md-3">
+            {{ payment.due?.cost | currency }}
+          </div>
+          <!-- Status -->
+          <div class="col-md-3">
+            <span *ngIf="payment.isPaymentComplete" class="badge bg-success">
+              Paid <span *ngIf="payment.paidAt">on {{ payment.paidAt | date:'short' }}</span>
+            </span>
+            <span *ngIf="!payment.isPaymentComplete" class="badge bg-danger">
+              Unpaid
+            </span>
+          </div>
+          <!-- Actions -->
+          <div class="col-md-3">
+            <button *ngIf="!payment.isPaymentComplete"
+                    class="btn btn-sm btn-primary"
+                    [disabled]="processingPayment"
+                    (click)="markAsPaid(payment.id)">
+              <span *ngIf="processingPayment" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              Mark as Paid
+            </button>
+            <span *ngIf="payment.isPaymentComplete" class="text-success">
+              <i class="bi bi-check-circle-fill me-1"></i> Payment Complete
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-4">
+    <a routerLink="/user/flats" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> Back to Flats
+    </a>
+  </div>
+</div>

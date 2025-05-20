@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import {ApartmentService} from '../services/apartment.service';
-import {Apartment} from '../models/apartment.model';
+import {ApartmentService} from '../../services/apartment.service';
+import {Apartment} from '../../models/apartment.model';
 
 @Component({
   selector: 'app-apartment-list',
@@ -15,8 +15,12 @@ export class ApartmentListComponent implements OnInit {
 
   constructor(private apartmentService: ApartmentService, private router: Router) { }
 
+  viewDues(id: number) {
+    this.router.navigate(['/admin/apartments', id, 'dues']);
+  }
+
   viewDetails(id: number) {
-    this.router.navigate(['/apartments', id]);
+    this.router.navigate(['/admin/apartments', id]);
   }
 
   deleteApartment(id: number): void {

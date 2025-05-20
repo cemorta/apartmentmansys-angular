@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Create New Due</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <form [formGroup]="dueForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="period" class="form-label">Period (YYYYMM)</label>
+      <input
+        type="text"
+        class="form-control"
+        id="period"
+        formControlName="period"
+        placeholder="202505"
+      />
+<!--      <div *ngIf="submitted && f['period'].errors" class="text-danger">-->
+<!--        <small *ngIf="f['period'].errors.required">Period is required</small>-->
+<!--        <small *ngIf="f['period'].errors.pattern">Period must be in YYYYMM format (e.g., 202505)</small>-->
+<!--      </div>-->
+      <small class="form-text text-muted">Format: YYYYMM (e.g., 202505 for May 2025)</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="cost" class="form-label">Cost</label>
+      <div class="input-group">
+        <span class="input-group-text">$</span>
+        <input
+          type="number"
+          step="0.01"
+          class="form-control"
+          id="cost"
+          formControlName="cost"
+          placeholder="0.00"
+        />
+      </div>
+<!--      <div *ngIf="submitted && f.cost.errors" class="text-danger">-->
+<!--        <small *ngIf="f.cost.errors.required">Cost is required</small>-->
+<!--        <small *ngIf="f.cost.errors.min">Cost must be greater than zero</small>-->
+<!--      </div>-->
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" routerLink="/admin/apartments/{{apartmentId}}/dues">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        Create Due
+      </button>
+    </div>
+  </form>
+</div>

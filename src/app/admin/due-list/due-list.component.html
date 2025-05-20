@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Dues for Apartment</h2>
+    <button class="btn btn-primary" routerLink="/admin/apartments/{{apartmentId}}/dues/create">
+      Add New Due
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div *ngIf="dues.length === 0" class="alert alert-info">
+      No dues found for this apartment.
+    </div>
+
+    <div *ngIf="dues.length > 0" class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Period</th>
+          <th>Cost</th>
+          <th>Payment Status</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let due of dues">
+          <td>{{ due.id }}</td>
+          <td>{{ due.period }}</td>
+          <td>{{ due.cost | currency }}</td>
+          <td>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar"
+                   [style.width]="(due.paidFlats / due.totalFlats * 100) + '%'"
+                   [attr.aria-valuenow]="due.paidFlats"
+                   aria-valuemin="0"
+                   [attr.aria-valuemax]="due.totalFlats">
+                {{ due.paidFlats }} / {{ due.totalFlats }}
+              </div>
+            </div>
+          </td>
+          <td>{{ due.createdAt | date:'short' }}</td>
+          <td>
+            <button class="btn btn-sm btn-info me-2" [routerLink]="['admin/dues', due.id, 'details']">
+              View Details
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

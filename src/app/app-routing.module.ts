@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FlatFormComponent} from './flat-form/flat-form.component';
 import {FlatUserComponent} from './flat-user/flat-user.component';
-import {ApartmentListComponent} from './apartment-list/apartment-list.component';
-import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.component';
-import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
 import {CreateFlatComponent} from './components/create-flat/create-flat.component';
 import {UserListComponent} from './components/user-list/user-list.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
@@ -28,7 +25,6 @@ const routes: Routes = [
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'home', component: ApartmentListComponent },
-  { path: 'home', component: ApartmentCreateComponent },
   { path: 'login', component: UserLoginComponent },
   //// { path: 'admin/login', component: AdminLoginComponent },
   //// { path: "browse-flats", component: FlatFormComponent}

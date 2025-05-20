@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApartmentService } from '../services/apartment.service';
-import { Apartment } from '../models/apartment.model';
+import { ApartmentService } from '../../services/apartment.service';
+import { Apartment } from '../../models/apartment.model';
 
 @Component({
   selector: 'app-apartment-create',

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
-import {ApartmentService} from '../services/apartment.service';
-import {Apartment} from '../models/apartment.model';
-import {Flat} from '../models/flat.model';
-import {ApartmentOwnership} from '../models/apartment-ownership.model';
+import {ApartmentService} from '../../services/apartment.service';
+import {Apartment} from '../../models/apartment.model';
+import {Flat} from '../../models/flat.model';
+import {ApartmentOwnership} from '../../models/apartment-ownership.model';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -54,7 +54,7 @@ export class ApartmentDetailComponent implements OnInit {
   // Action methods
   createNewFlat(): void {
     // Navigate to flat creation page
-    this.router.navigate([`/apartments/${this.apartmentId}/create-flat`]);
+    this.router.navigate([`/admin/apartments/${this.apartmentId}/create-flat`]);
   }
 
   editFlat(flatId: number): void {

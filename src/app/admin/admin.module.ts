@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -10,18 +10,29 @@ import {
 import {
   AdminMaintenanceRequestDetailComponent
 } from './admin-maintenance-request-detail/admin-maintenance-request-detail.component';
+import {ApartmentListComponent} from './apartment-list/apartment-list.component';
+import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.component';
+import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
+import {DueListComponent} from './due-list/due-list.component';
+import {DueCreateComponent} from './due-create/due-create.component';
 
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     AdminMaintenanceRequestListComponent,
-    AdminMaintenanceRequestDetailComponent
+    AdminMaintenanceRequestDetailComponent,
+    ApartmentListComponent,
+    ApartmentDetailComponent,
+    ApartmentCreateComponent,
+    DueCreateComponent,
+    DueListComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

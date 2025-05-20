@@ -8,6 +8,7 @@ import { UserMaintenanceRequestsListComponent } from './user-maintenance-request
 import { UserMaintenanceRequestDetailComponent } from './user-maintenance-request-detail/user-maintenance-request-detail.component';
 import { UserMaintenanceRequestAddComponent } from './user-maintenance-request-add/user-maintenance-request-add.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { FlatDuesComponent } from './flat-dues/flat-dues.component';
 
 
 @NgModule({
@@ -16,13 +17,14 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     UserMaintenanceRequestsListComponent,
     UserMaintenanceRequestDetailComponent,
     UserMaintenanceRequestAddComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    FlatDuesComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-     
+
   ]
 })
 export class UserModule { }
