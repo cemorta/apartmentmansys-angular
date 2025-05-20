@@ -25,7 +25,7 @@ export class AmenitiesChatComponent {
 
     // Başlangıç mesajı
     this.messages.push({
-      text: 'Merhaba! Tesis hizmetleri hakkında size nasıl yardımcı olabilirim?',
+      text: 'Hi! How can I help you?',
       sender: 'bot'
     });
   }
@@ -38,7 +38,7 @@ export class AmenitiesChatComponent {
     this.messages.push({ text: message, sender: 'user' });
 
     // Bot cevabı
-    this.messages.push({ text: 'Teşekkürler, isteğinizi aldım!', sender: 'bot' });
+    this.messages.push({ text: 'Thanks, I got your request!', sender: 'bot' });
 
     this.chatForm.reset();
     this.scrollToBottom();

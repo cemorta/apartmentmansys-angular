@@ -1,5 +1,5 @@
 <div class="chat-wrapper">
-  <h2 class="chat-title">Tesis Sohbet Asistanı</h2>
+  <h2 class="chat-title">Amenities Reservation Chat</h2>
 
   <div class="chat-box" #chatContainer>
     <div *ngFor="let msg of messages" [ngClass]="msg.sender">
@@ -11,9 +11,9 @@
     <input
       type="text"
       formControlName="message"
-      placeholder="Mesajınızı yazın..."
+      placeholder="Please write your message..."
       autocomplete="off"
     />
-    <button type="submit" [disabled]="chatForm.invalid">Gönder</button>
+    <button type="submit" [disabled]="chatForm.invalid">Send</button>
   </form>
 </div>
