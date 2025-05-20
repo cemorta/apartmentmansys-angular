@@ -8,7 +8,7 @@ import { MaintenanceRequestAssignmentService } from '../../services/maintenance-
   selector: 'app-staff-maintenance-assignments',
   standalone: false,
   templateUrl: './staff-maintenance-assignments.component.html',
-  styleUrl: './staff-maintenance-assignments.component.css'
+  styleUrl: './staff-maintenance-assignments.component.scss'
 })
 export class StaffMaintenanceAssignmentsComponent implements OnInit {
   assignments: MaintenanceRequestAssignmentModel[] = [];

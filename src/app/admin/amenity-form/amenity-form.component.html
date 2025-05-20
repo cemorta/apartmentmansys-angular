@@ -1,0 +1,94 @@
+<!-- amenity-form.component.html -->
+<div class="amenity-form-container">
+  <h2>Create New Amenity</h2>
+
+  <form [formGroup]="amenityForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Amenity Title</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter amenity title"
+        class="form-control">
+      <div *ngIf="titleControl?.invalid && (titleControl?.dirty || titleControl?.touched)" class="error-message">
+        <span *ngIf="titleControl?.errors?.['required']">Title is required.</span>
+        <span *ngIf="titleControl?.errors?.['minlength']">Title must be at least 3 characters long.</span>
+        <span *ngIf="titleControl?.errors?.['maxlength']">Title cannot exceed 100 characters.</span>
+      </div>
+    </div>
+
+    <div class="form-group time-inputs">
+      <div class="time-field">
+        <label for="openingHour">Opening Time</label>
+        <input
+          type="time"
+          id="openingHour"
+          formControlName="openingHour"
+          class="form-control">
+        <div *ngIf="openingHourControl?.invalid && (openingHourControl?.dirty || openingHourControl?.touched)" class="error-message">
+          <span *ngIf="openingHourControl?.errors?.['required']">Opening time is required.</span>
+        </div>
+      </div>
+
+      <div class="time-field">
+        <label for="closingHour">Closing Time</label>
+        <input
+          type="time"
+          id="closingHour"
+          formControlName="closingHour"
+          class="form-control">
+        <div *ngIf="closingHourControl?.invalid && (closingHourControl?.dirty || closingHourControl?.touched)" class="error-message">
+          <span *ngIf="closingHourControl?.errors?.['required']">Closing time is required.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maxPerson">Maximum Number of People</label>
+      <input
+        type="number"
+        id="maxPerson"
+        formControlName="maxPerson"
+        min="1"
+        max="100"
+        class="form-control">
+      <div *ngIf="maxPersonControl?.invalid && (maxPersonControl?.dirty || maxPersonControl?.touched)" class="error-message">
+        <span *ngIf="maxPersonControl?.errors?.['required']">Maximum people is required.</span>
+        <span *ngIf="maxPersonControl?.errors?.['min']">Value must be at least 1.</span>
+        <span *ngIf="maxPersonControl?.errors?.['max']">Value cannot exceed 100.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="timeSlice">Time Slot Duration (minutes)</label>
+      <select id="timeSlice" formControlName="timeSliceMinutes" class="form-control">
+        <option *ngFor="let option of timeSliceOptions" [value]="option">
+          {{ option }} minutes
+        </option>
+      </select>
+      <div *ngIf="timeSliceMinutesControl?.invalid && (timeSliceMinutesControl?.dirty || timeSliceMinutesControl?.touched)" class="error-message">
+        <span *ngIf="timeSliceMinutesControl?.errors?.['required']">Time slot duration is required.</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Saving...' : 'Create Amenity' }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="['/admin/amenities']">
+        Cancel
+      </button>
+    </div>
+
+    <div *ngIf="submitError" class="alert alert-danger mt-3">
+      {{ submitError }}
+    </div>
+  </form>
+</div>

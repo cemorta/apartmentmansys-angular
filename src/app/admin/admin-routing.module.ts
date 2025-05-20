@@ -15,6 +15,7 @@ import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.comp
 import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
 import {DueListComponent} from './due-list/due-list.component';
 import {DueCreateComponent} from './due-create/due-create.component';
+import {AmenityFormComponent} from './amenity-form/amenity-form.component';
 
 const routes: Routes = [
   { path: 'login', component: AdminLoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'apartments/create', component: ApartmentCreateComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'apartments/:id/dues', component: DueListComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'apartments/:id/dues/create', component: DueCreateComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'amenities/create', component: AmenityFormComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

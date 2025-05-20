@@ -15,6 +15,7 @@ import {ApartmentDetailComponent} from './apartment-detail/apartment-detail.comp
 import {ApartmentCreateComponent} from './apartment-create/apartment-create.component';
 import {DueListComponent} from './due-list/due-list.component';
 import {DueCreateComponent} from './due-create/due-create.component';
+import {AmenityFormComponent} from './amenity-form/amenity-form.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {DueCreateComponent} from './due-create/due-create.component';
     ApartmentDetailComponent,
     ApartmentCreateComponent,
     DueCreateComponent,
-    DueListComponent
+    DueListComponent,
+    AmenityFormComponent
   ],
   imports: [
     CommonModule,
