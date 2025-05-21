@@ -16,11 +16,7 @@ interface ChatMessage {
 export class AmenitiesChatComponent {
   botResponse: string = '';
   userId: number = 0;
-  userData = localStorage.getItem('currentUser');
-  if (userData: string) {
-    const user = JSON.parse(userData);
-    this.userId = user.id; // ✅ Class property'e ata
-  }
+  
   chatForm: FormGroup;
   messages: { text: string, sender: 'user' | 'bot' }[] = [];
 
@@ -30,6 +26,12 @@ export class AmenitiesChatComponent {
     this.chatForm = this.fb.group({
       message: ['', Validators.required]
     });
+
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.userId = user.id;  // Eğer user.id sayısal değilse Number(user.id) yap
+    }
 
     // Başlangıç mesajı
     this.messages.push({
