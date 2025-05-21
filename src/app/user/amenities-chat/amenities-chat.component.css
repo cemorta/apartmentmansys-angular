@@ -47,6 +47,7 @@
   max-width: 75%;
   word-wrap: break-word;
   display: inline-block;
+  white-space: pre-line;
 }
 
 /* Bot mesajı görünümü */
@@ -93,4 +94,8 @@
 .chat-input-area button:disabled {
   background-color: #aaa;
   cursor: not-allowed;
+}
+
+.bot-message {
+  white-space: pre-line;
 }

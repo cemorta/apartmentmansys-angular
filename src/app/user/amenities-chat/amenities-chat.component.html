@@ -3,8 +3,8 @@
 
   <div class="chat-box" #chatContainer>
     <div *ngFor="let msg of messages" [ngClass]="msg.sender">
-      <div class="bubble">{{ msg.text }}</div>
-    </div>
+  <div class="bubble" [ngClass]="msg.sender">{{ msg.text }}</div>
+</div>
   </div>
 
   <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-input-area">
