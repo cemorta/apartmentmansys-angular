@@ -8,13 +8,15 @@ import { environment } from '../../environment';
 })
 export class ChatService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-  /**
-   * Sends a user message to the backend, which forwards it to n8n & returns the AI's reply
-   * @param message The user's message
-   */
-  sendMessage(message: string): Observable<string> {
-    return this.http.post(`${environment.apiUrl}/api/chat/send`, message, { responseType: 'text' });
+  
+  sendMessage(message: string, userId: number): Observable<string> {
+    const body = {
+      message: message,
+      userId: userId
+    };
+    return this.http.post(`${environment.apiUrl}/api/chat/send`, body, { responseType: 'text' });
   }
 }

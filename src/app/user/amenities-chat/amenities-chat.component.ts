@@ -15,7 +15,12 @@ interface ChatMessage {
 })
 export class AmenitiesChatComponent {
   botResponse: string = '';
-
+  userId: number = 0;
+  userData = localStorage.getItem('currentUser');
+  if (userData: string) {
+    const user = JSON.parse(userData);
+    this.userId = user.id; // ✅ Class property'e ata
+  }
   chatForm: FormGroup;
   messages: { text: string, sender: 'user' | 'bot' }[] = [];
 
@@ -44,7 +49,7 @@ export class AmenitiesChatComponent {
     this.chatForm.reset();
 
     // Call API and add bot response ONLY after it returns
-    this.chatService.sendMessage(message).subscribe({
+    this.chatService.sendMessage(message, this.userId).subscribe({
       next: (response) => {
         // Add bot message to chat only after we receive it
         this.messages.push({ text: response, sender: 'bot' });
