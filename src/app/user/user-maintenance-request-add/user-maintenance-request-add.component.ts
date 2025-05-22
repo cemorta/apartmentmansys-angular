@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class UserMaintenanceRequestAddComponent implements OnInit {
   requestForm: FormGroup;
-  categoryOptions = ['PLUMBING', 'ELECTRICAL', 'HVAC', 'APPLIANCE', 'GENERAL'];
   userId = JSON.parse(localStorage.getItem('currentUser') || '{}')?.id;
 
   constructor(
@@ -23,7 +22,7 @@ export class UserMaintenanceRequestAddComponent implements OnInit {
     this.requestForm = this.fb.group({
       flatId: [null, [Validators.required]],
       description: ['', Validators.required],
-      category: ['', Validators.required]
+      
     });
   }
 
@@ -37,7 +36,6 @@ export class UserMaintenanceRequestAddComponent implements OnInit {
     const requestData = {
       flatId: this.requestForm.value.flatId,
       description: this.requestForm.value.description,
-      category: this.requestForm.value.category,
       residentUserId: this.userId, // 👈 backend DTO'daki alan adını kullandık
     };
 
