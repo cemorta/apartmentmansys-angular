@@ -40,9 +40,6 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/user/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
-        <li *ngIf="authService.isResident() || authService.isFlatOwner()" class="nav-item">
-          <a class="nav-link" routerLink="/user/my-apartment" routerLinkActive="active">My Apartment</a>
-        </li>
         <li *ngIf="!authService.isStaff() && (authService.isResident() || authService.isFlatOwner())" class="nav-item">
           <a class="nav-link" routerLink="/user/my-maintenance-requests" routerLinkActive="active">Maintenance</a>
         </li>
@@ -54,9 +51,6 @@
         </li>
         <li *ngIf="authService.isStaff()" class="nav-item">
           <a class="nav-link" routerLink="/user/staff-tasks" routerLinkActive="active">Tasks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/user/contact" routerLinkActive="active">Contact</a>
         </li>
       </ul>
 

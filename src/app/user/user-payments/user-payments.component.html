@@ -1,5 +1,12 @@
 <!-- flat-dues.component.html -->
-<div class="container-fluid mt-4">
+<div *ngIf="authService.isResident()">
+  <h2 class="mb-4">Flat Dues</h2>
+<div *ngIf="!loading && duePayments.length === 0" class="alert alert-danger">
+    Residents cannot view dues. Please contact your flat owner for details.
+  </div>
+</div>
+
+<div *ngIf="authService.isFlatOwner()" class="container-fluid mt-4">
   <h2 class="mb-4">Flat Dues</h2>
   <!-- Loading Spinner -->
   <div *ngIf="loading" class="text-center my-5">

@@ -20,7 +20,7 @@ export class UserPaymentsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private duePaymentService: DuePaymentService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
   }
 
